@@ -243,47 +243,6 @@ Temporal information across multiple frames is particularly important for metric
 
 ---
 
-
-
----
-
-#  Example Performance Output
-
-The system is designed to generate a structured performance summary for each athlete.
-
-Example:
-
-| KPI                 | Athlete Value | Elite Reference | Difference | Assessment |
-| ------------------- | ------------: | --------------: | ---------: | ---------- |
-| Stride Length       |             — |               — |          — | —          |
-| Stride Frequency    |             — |               — |          — | —          |
-| Ground Contact Time |             — |               — |          — | —          |
-| Knee Angle          |             — |               — |          — | —          |
-| Trunk Lean          |             — |               — |          — | —          |
-
-This allows coaches to quickly identify the most important areas that may require further analysis.
-
----
-
-# 🎥 Video Analysis
-
-The system accepts sprinting videos as input.
-
-The processing pipeline includes:
-
-1. Load the sprint video.
-2. Extract video frames.
-3. Detect the athlete.
-4. Estimate body keypoints.
-5. Track the athlete across frames.
-6. Filter unreliable detections.
-7. Calculate biomechanical measurements.
-8. Aggregate measurements across the sequence.
-9. Compare results with reference benchmarks.
-10. Generate the final performance analysis.
-
----
-
 #  Technologies Used
 
 ### Programming
