@@ -247,7 +247,7 @@ Temporal information across multiple frames is particularly important for metric
 
 ---
 
-# 📊 Example Performance Output
+#  Example Performance Output
 
 The system is designed to generate a structured performance summary for each athlete.
 
