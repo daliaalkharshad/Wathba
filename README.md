@@ -6,7 +6,7 @@
 
 ## Project Overview
 
-**SprintAI** is an AI-powered computer vision system designed to analyze and evaluate the biomechanical performance of elite and Olympic-level sprinters.
+**Wathba** is an AI-powered computer vision system designed to analyze and evaluate the biomechanical performance of elite and Olympic-level sprinters.
 
 The system analyzes sprinting videos to detect and track athletes, estimate human body keypoints, and extract biomechanical **Key Performance Indicators (KPIs)**. These measurements are then compared with reference values from elite and Olympic-level sprinters to identify performance strengths, weaknesses, and potential areas for improvement.
 
