@@ -96,9 +96,9 @@ The dataset was specifically prepared to fine-tune a pose estimation model for *
 | Keypoints                 | 17                                 |
 | Original Images           | 516                                |
 | Images After Augmentation | 1,442                              |
-| Training Split            | 96%                                |
-| Validation Split          | 2%                                 |
-| Testing Split             | 2%                                 |
+| Training Split            | 80%                                |
+| Validation Split          | 10%                                 |
+| Testing Split             | 10%                                 |
 
 ---
 
@@ -159,33 +159,31 @@ Best Model Selection
 
 ### Dataset Split
 
-* **96% Training**
-* **2% Validation**
-* **2% Testing**
+* **80% Training**
+* **10% Validation**
+* **10% Testing**
 
 ---
 
 #  Model Evaluation
 
-The pose estimation model is evaluated using standard object detection and pose estimation metrics.
+The pose estimation model was evaluated using standard pose estimation metrics to measure the accuracy of athlete detection and body keypoint prediction.
 
-### Detection Metrics
+### Evaluation Metrics
 
-* **Precision**
-* **Recall**
-* **mAP@50**
-* **mAP@50–95**
+* **Precision:** Measures how many predicted keypoints were correct.
+* **Recall:** Measures how successfully the model detected the expected keypoints.
+* **mAP@50:** Evaluates prediction accuracy at an IoU threshold of 0.50.
+* **mAP@50–95:** Provides a stricter evaluation across multiple IoU thresholds.
 
-### Pose Metrics
+### Model Performance
 
-* **Pose Precision**
-* **Pose Recall**
-* **Pose mAP@50**
-* **Pose mAP@50–95**
-
-These metrics are used to evaluate how accurately the model detects athletes and predicts their body keypoints.
-
-> Model performance results will be updated as the final training and evaluation experiments are completed.
+| Metric        | Baseline | Fine-Tuned |   Improvement |
+| ------------- | -------: | ---------: | ------------: |
+| **Precision** |   95.58% | **99.52%** |      +3.94 pp |
+| **Recall**    |   92.86% | **98.71%** |      +5.85 pp |
+| **mAP@50**    |   92.50% | **99.48%** |      +6.98 pp |
+| **mAP@50–95** |   56.31% | **86.38%** | **+30.08 pp** |
 
 ---
 
