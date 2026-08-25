@@ -426,8 +426,12 @@ pip install ultralytics opencv-python numpy pandas
 # Wathba Team 
 
 **Aljuhara** 
+
 **Dalia** 
+
 **Mohammed**
+
 **Nawaf** 
+
 **Abdulaziz**
 
