@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="logo1.jpeg" alt="WATHBA Logo" width="450">
+  <img src="logo 1.jpeg" alt="WATHBA Logo" width="450">
 </p>
 
 
