@@ -1,4 +1,4 @@
-![WATHBA Logo](logo1.png)
+!(logo1.png)
 
 # Wathba
 
