@@ -2,7 +2,6 @@
 
 <img src="logo 1.jpeg" alt="WATHBA Logo" width="500">
 
-# WATHBA
 
 ### AI-Powered Biomechanical Performance Analysis for Sprint Athletes
 
