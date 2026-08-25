@@ -1,3 +1,5 @@
+![WATHBA Logo](logo1.png)
+
 # Wathba
 
 ### AI-Powered Biomechanical Performance Analysis for Elite Sprinters
