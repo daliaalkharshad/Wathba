@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="logo 1.jpeg" alt="WATHBA Logo" width="500">
+<img src="images/logo 1.jpeg" alt="WATHBA Logo" width="500">
 
 
 ### AI-Powered Biomechanical Performance Analysis for Sprint Athletes
