@@ -391,70 +391,6 @@ World-Class / Record-Level
 
 ---
 
-# Athlete-Level Output
-
-Instead of generating an independent result for every video frame, WATHBA aggregates temporal information into an athlete-level profile.
-
-Example:
-
-```text
-Runner ID: 3
-
-Raw Measurements
-├── Step Frequency
-├── Step Length
-├── Ground Contact Time
-├── Flight Time
-├── Knee Angle
-└── Trunk Lean
-
-Derived Metrics
-├── Duty Factor
-├── Contact / Flight Ratio
-├── Relative Step Length
-├── Normalized Step Frequency
-├── Froude Number
-├── Knee Delta
-└── Step-Time Asymmetry
-
-Context
-├── Speed Tier
-├── Valid Steps
-├── Camera Angle
-├── FPS
-├── Running Phase
-└── Data Quality
-```
-
----
-
-# System Output
-
-WATHBA generates two primary outputs:
-
-### 1. Annotated Sprint Video
-
-```text
-running_analysis.mp4
-```
-
-The video visualizes:
-
-- Athlete tracking
-- Runner IDs
-- Selected anatomical keypoints
-- Pose connections
-
-### 2. Athlete Results
-
-```text
-runner_results.csv
-```
-
-The CSV contains one summarized biomechanical profile for each detected `Runner_ID`, including raw measurements, derived metrics, and contextual variables.
-
----
-
 # Technologies Used
 
 | Area | Technologies |
@@ -487,21 +423,11 @@ pip install ultralytics opencv-python numpy pandas
 ```
 
 ---
+# Wathba Team 
 
-# Current Development Status
+Aljuhara 
+Dalia 
+Mohammed
+Nawaf 
+Abdulaziz
 
-WATHBA currently supports:
-
-- Custom fine-tuned sprint pose estimation
-- 17-keypoint athlete detection
-- Multi-athlete tracking with Runner IDs
-- Temporal keypoint filtering
-- Gait-event detection
-- Raw biomechanical KPI extraction
-- Dimensionless and normalized metric calculation
-- Athlete-level aggregation
-- Context-aware analysis
-- Annotated video generation
-- CSV performance output
-
-Further development focuses on **benchmark validation, athlete comparison, and interpretable performance assessment**.
