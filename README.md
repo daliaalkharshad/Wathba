@@ -10,7 +10,6 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![YOLO](https://img.shields.io/badge/YOLO-YOLO11x--Pose-purple)
-![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red)
 ![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green)
 ![Roboflow](https://img.shields.io/badge/Roboflow-Dataset%20%26%20Annotation-orange)
 ![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
