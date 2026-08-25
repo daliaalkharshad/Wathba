@@ -1,9 +1,13 @@
-<p align="center">
-  <img src="logo 1.jpeg" alt="WATHBA Logo" width="450">
-</p>
+<div align="center">
 
+<img src="logo 1.jpeg" alt="WATHBA Logo" width="500">
+
+# WATHBA
 
 ### AI-Powered Biomechanical Performance Analysis for Sprint Athletes
+
+
+</div>
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![YOLO](https://img.shields.io/badge/YOLO-YOLO11x--Pose-purple)
