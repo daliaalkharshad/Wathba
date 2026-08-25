@@ -1,141 +1,232 @@
+# WATHBA
 
+### AI-Powered Biomechanical Performance Analysis for Sprint Athletes
 
-# Wathba
+![Python](https://img.shields.io/badge/Python-3.10+-blue)
+![YOLO](https://img.shields.io/badge/YOLO-YOLO11x--Pose-purple)
+![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-red)
+![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green)
+![Roboflow](https://img.shields.io/badge/Roboflow-Dataset%20%26%20Annotation-orange)
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
 
-### AI-Powered Biomechanical Performance Analysis for Elite Sprinters
+---
+
+WATHBA is a computer vision–based biomechanical analysis system designed to transform sprint videos into measurable, athlete-specific performance insights.
+
+The system combines **pose estimation, multi-athlete tracking, temporal gait analysis, biomechanical feature extraction, normalization, and contextual performance assessment** to analyze sprint mechanics beyond race time alone.
 
 ---
 
 ## Project Overview
 
-**Wathba** is an AI-powered computer vision system designed to analyze and evaluate the biomechanical performance of elite and Olympic-level sprinters.
+Traditional sprint evaluation often focuses on final race time. While race time measures the outcome, it does not fully explain the biomechanical factors that contributed to that performance.
 
-The system analyzes sprinting videos to detect and track athletes, estimate human body keypoints, and extract biomechanical **Key Performance Indicators (KPIs)**. These measurements are then compared with reference values from elite and Olympic-level sprinters to identify performance strengths, weaknesses, and potential areas for improvement.
+WATHBA analyzes sprint videos frame by frame to:
 
-The main goal is to transform ordinary race videos into **objective, data-driven performance insights** that can support athletes and coaches in developing more targeted training strategies.
+- Detect multiple athletes.
+- Assign and maintain a unique **Runner ID** for each athlete.
+- Estimate 17 anatomical keypoints.
+- Track body movement across time.
+- Detect gait events such as ground contact and flight phases.
+- Extract raw biomechanical measurements.
+- Derive normalized biomechanical metrics.
+- Contextualize results according to speed, running phase, video quality, and other analysis conditions.
 
----
-
-##  Problem Statement
-
-The performance development of Saudi elite and Olympic sprinters faces a significant challenge in obtaining objective, detailed, and data-driven insights into an athlete’s running technique and biomechanics. Traditional performance evaluation often focuses primarily on the final race time, which does not fully explain why an athlete achieved a particular result or which technical and biomechanical factors may be limiting their performance.
-
-Advanced biomechanical analysis typically requires specialized laboratories, motion-capture systems, and expensive sensors, making continuous and accessible performance analysis difficult.
-
----
-
-##  Project Objective
-
-The main objective  is to develop an accessible AI-based system that can:
-
-1. Analyze sprint race videos.
-2. Detect and track athletes across video frames.
-3. Estimate human body keypoints using pose estimation.
-4. Extract biomechanical performance indicators.
-5. Calculate a representative value for each KPI rather than relying only on frame-by-frame measurements.
-6. Compare athlete measurements with elite and Olympic-level reference values.
-7. Identify potential strengths and weaknesses in running technique.
-8. Provide objective insights that can support coaches and athletes in performance development.
-
+The goal is to provide athletes and coaches with an accessible and data-driven method for understanding sprint mechanics without relying exclusively on laboratory-based motion-capture systems.
 
 ---
 
-# System Workflow
+# Problem Statement
+
+Performance differences between sprinters cannot be explained by race time alone.
+
+Two athletes may achieve similar times while demonstrating different:
+
+- Step frequencies
+- Step lengths
+- Ground contact times
+- Flight times
+- Knee mechanics
+- Trunk positions
+- Left-right asymmetries
+
+Advanced biomechanical assessment is traditionally performed using specialized motion-capture laboratories, force platforms, and high-speed measurement systems.
+
+These systems provide high-quality measurements but may not always be accessible for frequent athlete assessment.
+
+WATHBA explores how **AI-based pose estimation and temporal video analysis** can provide an accessible complementary approach for extracting biomechanical information from sprint footage.
+
+---
+
+# Project Objectives
+
+WATHBA aims to:
+
+1. Analyze sprint videos using computer vision.
+2. Detect and track multiple athletes throughout a video.
+3. Assign a persistent **Runner ID** to each detected athlete.
+4. Estimate 17 human body keypoints.
+5. Extract temporal gait events from athlete movement.
+6. Calculate raw biomechanical performance measurements.
+7. Convert selected measurements into normalized and dimensionless metrics.
+8. Add contextual information to support fairer athlete comparison.
+9. Compare athlete profiles with relevant sprint performance references.
+10. Produce interpretable data that can support athlete and coach decision-making.
+
+---
+
+# System Architecture
 
 ```text
-              Sprint Video
-                    │
-                    ▼
-          Video Frame Extraction
-                    │
-                    ▼
-          Athlete Detection
-                    │
-                    ▼
-           Pose Estimation
-                    │
-                    ▼
-        17 Body Keypoint Detection
-                    │
-                    ▼
-          Athlete Tracking
-                    │
-                    ▼
-      Biomechanical KPI Calculation
-                    │
-                    ▼
-       KPI Aggregation & Filtering
-                    │
-                    ▼
-       Elite/Olympic Benchmarking
-                    │
-                    ▼
-       Performance Assessment
-                    │
-                    ▼
-         Athlete Insights Report
+                     Sprint Video
+                          │
+                          ▼
+                 YOLO11x-Pose Model
+                          │
+                          ▼
+                Athlete Pose Detection
+                          │
+                          ▼
+                  17 Body Keypoints
+                          │
+                          ▼
+                      ByteTrack
+                          │
+                          ▼
+               Unique Runner IDs
+                          │
+                          ▼
+              Temporal Keypoint Filtering
+                          │
+                          ▼
+                  Gait Event Detection
+                          │
+                          ▼
+              ┌─────────────────────┐
+              │  LAYER 1: MEASURE   │
+              └──────────┬──────────┘
+                         │
+                         ▼
+                 Raw Biomechanics
+                         │
+                         ▼
+              ┌─────────────────────┐
+              │ LAYER 2: NORMALISE  │
+              └──────────┬──────────┘
+                         │
+                         ▼
+               Derived Metrics
+                         │
+                         ▼
+            ┌────────────────────────┐
+            │ LAYER 3: CONTEXTUALISE │
+            └───────────┬────────────┘
+                        │
+                        ▼
+               Athlete Assessment
 ```
 
 ---
 
-#  Dataset
+# Dataset
 
-## Data Source
+## Data Collection
 
-The dataset was personally collected from multiple sources, including **YouTube sprinting and running videos**.
+The custom sprint pose dataset was collected from multiple video sources, including publicly available sprint footage.
 
-The collected videos were converted into individual frames, after which the athlete body keypoints were manually annotated using **Roboflow**.
+Videos were converted into individual frames, and athlete body keypoints were manually annotated using **Roboflow**.
 
-The dataset was specifically prepared to fine-tune a pose estimation model for **runner-specific keypoint detection**.
+The dataset was specifically prepared to fine-tune the pose estimation model for sprint-specific body positions and movement patterns.
 
-### Dataset Summary
+## Dataset Summary
 
-| Category                  | Details                            |
-| ------------------------- | ---------------------------------- |
-| Data Sources              | Multiple sources including YouTube |
-| Annotation Tool           | Roboflow                           |
-| Annotation Type           | Human Pose / Keypoint Detection    |
-| Keypoints                 | 17                                 |
-| Original Images           | 516                                |
-| Images After Augmentation | 1,442                              |
-| Training Split            | 80%                                |
-| Validation Split          | 10%                                 |
-| Testing Split             | 10%                                 |
-
----
-
-#  Keypoint Detection
-
-The system uses **17 human body keypoints** following the YOLO Pose keypoint format.
-
-These keypoints represent the major anatomical locations required to analyze sprinting movement and calculate biomechanical indicators.
-
-The detected keypoints are used to estimate relationships between body joints and analyze the athlete's running technique.
+| Category | Details |
+|---|---|
+| Data Sources | Multiple sprint video sources |
+| Annotation Tool | Roboflow |
+| Annotation Type | Human Pose / Keypoint Detection |
+| Keypoints | 17 |
+| Original Images | 516 |
+| Images After Augmentation | 1,442 |
+| Training | 1,153 images (~80%) |
+| Validation | 144 images (~10%) |
+| Testing | 145 images (~10%) |
 
 ---
 
-#  Model
+# Pose Estimation
 
-**Wathba** uses YOLO11x-Pose as the primary pose estimation model. The model was selected as a baseline because of its strong pose estimation capabilities and ability to detect human body keypoints efficiently in video-based applications.
+WATHBA uses the standard **17-keypoint human pose representation** supported by YOLO Pose.
 
-Two model configurations were evaluated:
+The detected anatomical landmarks include keypoints corresponding to the:
 
-Baseline Model — YOLO11x-Pose
-Pre-trained YOLO11x-Pose model.
-Used without fine-tuning on the custom sprinting dataset.
-Serves as the baseline for evaluating pose estimation performance.
-Fine-Tuned Model — YOLO11x-Pose
-The same YOLO11x-Pose architecture was fine-tuned using the custom sprinting dataset.
-The dataset contains manually annotated sprinting images with 17 human body keypoints.
-The purpose of fine-tuning was to adapt the model to the specific visual characteristics and poses of sprinting athletes.
+- Shoulders
+- Hips
+- Knees
+- Ankles
+- Elbows
+- Wrists
+- Head and facial landmarks
+
+For sprint biomechanical calculations, the analysis primarily relies on the **shoulders, hips, knees, and ankles**.
+
+Keypoints are processed temporally rather than treating every frame independently. This helps reduce unstable detections and supports gait-event and joint-motion analysis.
 
 ---
 
-#  Model Training
+# Athlete Tracking
 
-The custom dataset was used to fine-tune the pose estimation model.
+Pose estimation identifies athletes within individual frames, but biomechanical analysis requires the system to recognize the same athlete across time.
 
-The training pipeline includes:
+WATHBA therefore combines pose estimation with **ByteTrack multi-object tracking**.
+
+Each athlete receives a unique:
+
+```text
+Runner ID
+```
+
+For example:
+
+```text
+Runner ID 1
+Runner ID 2
+Runner ID 3
+```
+
+Biomechanical measurements are stored and aggregated independently for each Runner ID.
+
+This enables WATHBA to analyze **multiple athletes within the same sprint video**.
+
+---
+
+# Model
+
+WATHBA uses **YOLO11x-Pose** as its pose estimation architecture.
+
+Two configurations were evaluated.
+
+### Baseline Model
+
+A pre-trained YOLO11x-Pose checkpoint was evaluated without additional training on the custom sprint dataset.
+
+It provides the baseline against which sprint-specific fine-tuning is evaluated.
+
+### Fine-Tuned Model
+
+The same architecture was fine-tuned using the custom sprint pose dataset containing manually annotated 17-keypoint athlete poses.
+
+Fine-tuning aims to improve pose estimation under sprint-specific conditions such as:
+
+- High-speed limb movement
+- Running-specific body configurations
+- Athlete overlap
+- Partial occlusion
+- Race footage viewpoints
+
+---
+
+# Model Training
 
 ```text
 Custom Sprint Dataset
@@ -147,155 +238,270 @@ Manual Keypoint Annotation
 Data Augmentation
         │
         ▼
-Train / Validation / Test Split
+80 / 10 / 10 Split
         │
         ▼
-YOLO Pose Fine-Tuning
+YOLO11x-Pose Fine-Tuning
         │
         ▼
-Model Evaluation
+Validation & Testing
         │
         ▼
-Best Model Selection
+Best Checkpoint
 ```
 
-### Dataset Split
+---
 
-* **80% Training**
-* **10% Validation**
-* **10% Testing**
+# Model Evaluation
+
+The baseline and fine-tuned models were evaluated using pose estimation performance metrics.
+
+| Metric | Baseline | Fine-Tuned | Improvement |
+|---|---:|---:|---:|
+| **Precision** | 95.58% | **99.52%** | +3.94 pp |
+| **Recall** | 92.86% | **98.71%** | +5.85 pp |
+| **mAP@50** | 92.50% | **99.48%** | +6.98 pp |
+| **mAP@50–95** | 56.31% | **86.38%** | **+30.08 pp** |
+
+The largest improvement was observed in **mAP@50–95**, increasing by approximately **30 percentage points**, indicating substantially better localization performance under stricter evaluation thresholds.
 
 ---
 
-#  Model Evaluation
+# Biomechanical Analysis Framework
 
-The pose estimation model was evaluated using standard pose estimation metrics to measure the accuracy of athlete detection and body keypoint prediction.
-
-### Evaluation Metrics
-
-* **Precision:** Measures how many predicted keypoints were correct.
-* **Recall:** Measures how successfully the model detected the expected keypoints.
-* **mAP@50:** Evaluates prediction accuracy at an IoU threshold of 0.50.
-* **mAP@50–95:** Provides a stricter evaluation across multiple IoU thresholds.
-
-### Model Performance
-
-| Metric        | Baseline | Fine-Tuned |   Improvement |
-| ------------- | -------: | ---------: | ------------: |
-| **Precision** |   95.58% | **99.52%** |      +3.94 pp |
-| **Recall**    |   92.86% | **98.71%** |      +5.85 pp |
-| **mAP@50**    |   92.50% | **99.48%** |      +6.98 pp |
-| **mAP@50–95** |   56.31% | **86.38%** | **+30.08 pp** |
-
----
-
-#  Biomechanical KPIs
-
-One of the main components of Wathba is converting pose keypoints into meaningful **biomechanical Key Performance Indicators (KPIs)**.
-
-The system currently focuses on metrics such as:
-
-| KPI                     | Description                                             |
-| ----------------------- | ------------------------------------------------------- |
-| **Stride Length**       | Distance covered during each running stride             |
-| **Stride Frequency**    | Number of strides performed per unit of time            |
-| **Ground Contact Time** | Approximate duration of foot contact with the ground    |
-| **Knee Angle**          | Joint angle used to evaluate lower-limb mechanics       |
-| **Trunk Lean**          | Forward inclination of the athlete's trunk              |
-| **Running Direction**   | Direction of the athlete's movement                     |
-| **Movement Dynamics**   | Changes in movement characteristics throughout the race |
-
-The system aggregates measurements across the analyzed sequence to provide **representative KPI values for each athlete**, rather than treating every video frame as an independent result.
-
----
-
-#  KPI Calculation
-
-The system extracts the 17 body keypoints from each frame and uses their spatial and temporal relationships to calculate biomechanical measurements.
-
-For example:
+WATHBA organizes biomechanical analysis into three layers:
 
 ```text
-Keypoints
-   │
-   ├── Hip
-   ├── Knee
-   ├── Ankle
-   ├── Shoulder
-   └── Other body joints
-          │
-          ▼
-     Joint Geometry
-          │
-          ▼
-   Temporal Analysis
-          │
-          ▼
-    Biomechanical KPIs
+MEASURE  →  NORMALISE  →  CONTEXTUALISE
 ```
 
-Temporal information across multiple frames is particularly important for metrics such as:
-
-* Stride Frequency
-* Stride Length
-* Ground Contact Time
-* Movement dynamics
+This separates direct video measurements from derived biomechanical variables and the contextual information required to interpret them.
 
 ---
 
-#  Technologies Used
+## Layer 1 — Measure
 
-### Programming
+The first layer extracts raw biomechanical measurements from pose trajectories and gait events.
 
-* Python
-
-### Computer Vision
-
-* OpenCV
-* YOLO Pose
-* Pose Estimation
-* Object Tracking
-
-### Machine Learning
-
-* Ultralytics
-* PyTorch
-
-### Data Processing
-
-* NumPy
-* Pandas
-
-### Dataset Annotation
-
-* Roboflow
-
-### Development Environment
-
-* Google Colab
-* GitHub
+| Metric | Unit | Description |
+|---|---:|---|
+| **Step Frequency** | Hz | Number of steps performed per second |
+| **Step Length** | m / px | Distance covered per step |
+| **Ground Contact Time** | ms | Duration for which the foot remains in contact with the ground |
+| **Flight Time** | ms | Time during which neither foot is detected in ground contact |
+| **Knee Angle at Initial Contact** | deg | Knee angle when the foot initially contacts the ground |
+| **Minimum Knee Angle** | deg | Minimum detected knee angle during the analyzed movement |
+| **Trunk Lean at Initial Contact** | deg | Trunk inclination at initial ground contact |
+| **Left Step Time** | s | Temporal duration associated with the left step |
+| **Right Step Time** | s | Temporal duration associated with the right step |
+| **Running Speed** | m/s | Estimated horizontal athlete speed when spatial calibration is available |
 
 ---
 
+## Layer 2 — Normalise
+
+Raw measurements can be influenced by athlete body size and measurement scale.
+
+WATHBA therefore derives normalized or dimensionless metrics for more meaningful comparison.
+
+### Duty Factor
+
+```text
+DF = GCT × SF
+```
+
+Represents the relationship between ground contact duration and step frequency.
+
+### Contact / Flight Ratio
+
+```text
+CFR = GCT / FT
+```
+
+Compares time spent in ground contact with time spent in flight.
+
+### Relative Step Length
+
+```text
+RSL = SL / h
+```
+
+Normalizes step length relative to athlete height.
+
+### Normalized Step Frequency
+
+```text
+nSF = SF × √(h / g)
+```
+
+Normalizes step frequency using body height and gravitational acceleration.
+
+### Froude Number
+
+```text
+Fr = v² / (g × h)
+```
+
+Provides a dimensionless representation of running speed relative to body scale.
+
+### Knee Delta
+
+```text
+KD = Knee_Touchdown − Knee_Min
+```
+
+Measures the change between knee angle at initial contact and the minimum observed knee angle.
+
+### Step-Time Asymmetry
+
+```text
+ASYM = |TL − TR| / ((TL + TR) / 2)
+```
+
+Quantifies temporal asymmetry between left and right steps.
+
+---
+
+## Layer 3 — Contextualise
+
+The final layer does not directly modify the biomechanical measurements.
+
+Instead, it stores information required to determine **how confidently and under what conditions the results should be interpreted**.
+
+| Context Variable | Purpose |
+|---|---|
+| **Speed Tier** | Groups athletes according to running-speed context |
+| **Valid Steps** | Indicates how many usable gait events support the calculated results |
+| **Camera Angle** | Identifies the video viewpoint and determines which measurements are reliable |
+| **Video FPS** | Indicates temporal resolution, particularly important for contact and flight measurements |
+| **Running Phase** | Distinguishes acceleration from maximum-velocity mechanics |
+| **Data Quality** | Indicates the reliability of the available measurements |
+
+### Speed Tiers
+
+The current WATHBA implementation uses three project-level categories:
+
+```text
+Competitive
+Professional / Elite
+World-Class / Record-Level
+```
+
+> **Note:** These categories are used by WATHBA as contextual performance groups. They should not be presented as official World Athletics classification thresholds unless the final speed boundaries are validated against an appropriate external reference.
+
+---
+
+# Athlete-Level Output
+
+Instead of generating an independent result for every video frame, WATHBA aggregates temporal information into an athlete-level profile.
+
+Example:
+
+```text
+Runner ID: 3
+
+Raw Measurements
+├── Step Frequency
+├── Step Length
+├── Ground Contact Time
+├── Flight Time
+├── Knee Angle
+└── Trunk Lean
+
+Derived Metrics
+├── Duty Factor
+├── Contact / Flight Ratio
+├── Relative Step Length
+├── Normalized Step Frequency
+├── Froude Number
+├── Knee Delta
+└── Step-Time Asymmetry
+
+Context
+├── Speed Tier
+├── Valid Steps
+├── Camera Angle
+├── FPS
+├── Running Phase
+└── Data Quality
+```
+
+---
+
+# System Output
+
+WATHBA generates two primary outputs:
+
+### 1. Annotated Sprint Video
+
+```text
+running_analysis.mp4
+```
+
+The video visualizes:
+
+- Athlete tracking
+- Runner IDs
+- Selected anatomical keypoints
+- Pose connections
+
+### 2. Athlete Results
+
+```text
+runner_results.csv
+```
+
+The CSV contains one summarized biomechanical profile for each detected `Runner_ID`, including raw measurements, derived metrics, and contextual variables.
+
+---
+
+# Technologies Used
+
+| Area | Technologies |
+|---|---|
+| **Programming** | Python |
+| **Pose Estimation** | YOLO11x-Pose |
+| **Tracking** | ByteTrack |
+| **Computer Vision** | OpenCV |
+| **Deep Learning** | Ultralytics, PyTorch |
+| **Numerical Processing** | NumPy |
+| **Data Analysis** | Pandas |
+| **Dataset Annotation** | Roboflow |
+| **Development** | Google Colab, GitHub |
+
+---
 
 # Installation
 
 Clone the repository:
 
+```bash
+git clone <repository-url>
+cd Wathba
+```
 
+Install the required dependencies:
 
----
-
-#  Team
-
-**Wathba Team**
-
-Aljuhara 
-Dalia
-Mohammed 
-Nawaf 
-Abdulaziz
-
-
+```bash
+pip install ultralytics opencv-python numpy pandas
+```
 
 ---
+
+# Current Development Status
+
+WATHBA currently supports:
+
+- Custom fine-tuned sprint pose estimation
+- 17-keypoint athlete detection
+- Multi-athlete tracking with Runner IDs
+- Temporal keypoint filtering
+- Gait-event detection
+- Raw biomechanical KPI extraction
+- Dimensionless and normalized metric calculation
+- Athlete-level aggregation
+- Context-aware analysis
+- Annotated video generation
+- CSV performance output
+
+Further development focuses on **benchmark validation, athlete comparison, and interpretable performance assessment**.
