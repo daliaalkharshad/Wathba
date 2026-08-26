@@ -43,20 +43,6 @@ Using sprint videos, WATHBA combines pose estimation, athlete tracking, temporal
 
 ---
 
-# WATHBA
-
-## Project Overview
-
-In sprinting, race time tells us **how large the performance gap is**, but it does not explain **why that gap exists**.
-
-**WATHBA** is an AI-powered sprint performance analysis system designed to identify the biomechanical factors that may contribute to the performance gap between an athlete and elite or Olympic-level sprinters.
-
-Using sprint videos, WATHBA combines pose estimation, athlete tracking, temporal analysis, and biomechanical measurements to transform race footage into athlete-specific performance insights.
-
-> **Race time identifies the gap. WATHBA investigates what is behind it.**
-
----
-
 ## Problem Statement
 
 The performance gap between Saudi sprinters and elite or Olympic-level athletes can be identified through race time, but **race time alone does not explain why this gap exists**.
