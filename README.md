@@ -249,21 +249,6 @@ Phase 2 moves the project from a research-oriented analysis pipeline toward a de
 
 ---
 
-## Event Safety
-
-The current calibrated analysis is designed for the **100m sprint**.
-
-For **200m and 400m**, the system may accept video and expose raw model measurements, but:
-
-- Elite comparisons remain locked.
-- Performance tiers remain locked.
-- Development claims remain locked.
-
-These features will only be enabled after event-specific reference reports are approved.
-
-> **WATHBA does not reuse 100m benchmark bands for 200m or 400m events.**
-
----
 
 ## Repository Structure
 
@@ -321,47 +306,6 @@ without requiring changes to the frontend API contract.
 
 ---
 
-# Technologies
-
-<div align="center">
-
-### Technologies & Tools
-
-![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
-![YOLO](https://img.shields.io/badge/YOLO11x--Pose-111F68)
-![ByteTrack](https://img.shields.io/badge/Tracking-ByteTrack-6C63FF)
-![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8?logo=opencv&logoColor=white)
-![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-EE4C2C?logo=pytorch&logoColor=white)
-![Ultralytics](https://img.shields.io/badge/Ultralytics-YOLO-111F68)
-![NumPy](https://img.shields.io/badge/NumPy-Data%20Processing-013243?logo=numpy&logoColor=white)
-![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-150458?logo=pandas&logoColor=white)
-![Roboflow](https://img.shields.io/badge/Roboflow-Dataset%20%26%20Annotation-6706CE)
-![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=black)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql&logoColor=white)
-![Google Cloud](https://img.shields.io/badge/Google%20Cloud-Deployment-4285F4?logo=googlecloud&logoColor=white)
-![RAG](https://img.shields.io/badge/RAG-AI%20Interpretation-8A2BE2)
-![LLM](https://img.shields.io/badge/LLM-AI%20Interpretation-412991)
-
-</div>
-
----
-
-# Installation
-
-Clone the repository:
-
-```bash
-git clone <repository-url>
-cd Wathba
-```
-
-Install the backend dependencies according to the project configuration.
-
-For the federation trial, the backend is designed to run independently from the frontend through its versioned API contract.
-
----
 
 # WATHBA Team
 
