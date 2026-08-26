@@ -258,22 +258,6 @@ By comparing the athlete's biomechanical measurements with relevant elite or Oly
 | **Dataset Annotation** | Roboflow |
 | **Development** | Google Colab, GitHub |
 
----
-
-## Installation
-
-Clone the repository:
-
-```bash
-git clone <repository-url>
-cd Wathba
-```
-
-Install the required dependencies:
-
-```bash
-pip install ultralytics opencv-python numpy pandas
-```
 
 ---
 
