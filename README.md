@@ -6,13 +6,40 @@
 
 **Beyond race time — understanding why the gap exists.**
 
+<br>
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![YOLO](https://img.shields.io/badge/YOLO11x--Pose-111F68)
+![ByteTrack](https://img.shields.io/badge/Tracking-ByteTrack-6C63FF)
+![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8?logo=opencv&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-EE4C2C?logo=pytorch&logoColor=white)
+![Ultralytics](https://img.shields.io/badge/Ultralytics-YOLO-111F68)
+![NumPy](https://img.shields.io/badge/NumPy-Data%20Processing-013243?logo=numpy&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-150458?logo=pandas&logoColor=white)
+![Roboflow](https://img.shields.io/badge/Roboflow-Dataset%20%26%20Annotation-6706CE)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql&logoColor=white)
+![Google Cloud](https://img.shields.io/badge/Google%20Cloud-Deployment-4285F4?logo=googlecloud&logoColor=white)
+![RAG](https://img.shields.io/badge/RAG-AI%20Interpretation-8A2BE2)
+![LLM](https://img.shields.io/badge/LLM-AI%20Interpretation-412991)
+
 </div>
 
-![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![YOLO](https://img.shields.io/badge/YOLO-YOLO11x--Pose-purple)
-![FastAPI](https://img.shields.io/badge/FastAPI-Backend-teal)
-![React](https://img.shields.io/badge/React-TypeScript-blue)
-![Status](https://img.shields.io/badge/Status-Federation%20Trial-yellow)
+---
+
+# WATHBA
+
+## Project Overview
+
+In sprinting, race time tells us **how large the performance gap is**, but it does not explain **why that gap exists**.
+
+**WATHBA** is an AI-powered sprint performance analysis system designed to identify the biomechanical factors that may contribute to the performance gap between an athlete and elite or Olympic-level sprinters.
+
+Using sprint videos, WATHBA combines pose estimation, athlete tracking, temporal analysis, and biomechanical measurements to transform race footage into athlete-specific performance insights.
+
+> **Race time identifies the gap. WATHBA investigates what is behind it.**
 
 ---
 
