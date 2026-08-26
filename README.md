@@ -310,20 +310,28 @@ without requiring changes to the frontend API contract.
 
 # Technologies
 
-| Area | Technology |
-|---|---|
-| **Programming** | Python, TypeScript |
-| **Pose Estimation** | YOLO11x-Pose |
-| **Tracking** | ByteTrack |
-| **Computer Vision** | OpenCV |
-| **Deep Learning** | Ultralytics, PyTorch |
-| **Data Processing** | NumPy, Pandas |
-| **Dataset & Annotation** | Roboflow |
-| **Backend** | FastAPI |
-| **Frontend** | React / TypeScript |
-| **Database** | PostgreSQL |
-| **Deployment** | Google Cloud Run |
-| **AI Interpretation** | RAG / LLM |
+<div align="center">
+
+### Technologies & Tools
+
+![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![YOLO](https://img.shields.io/badge/YOLO11x--Pose-111F68)
+![ByteTrack](https://img.shields.io/badge/Tracking-ByteTrack-6C63FF)
+![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-5C3EE8?logo=opencv&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-Deep%20Learning-EE4C2C?logo=pytorch&logoColor=white)
+![Ultralytics](https://img.shields.io/badge/Ultralytics-YOLO-111F68)
+![NumPy](https://img.shields.io/badge/NumPy-Data%20Processing-013243?logo=numpy&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Processing-150458?logo=pandas&logoColor=white)
+![Roboflow](https://img.shields.io/badge/Roboflow-Dataset%20%26%20Annotation-6706CE)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-009688?logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-Frontend-61DAFB?logo=react&logoColor=black)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql&logoColor=white)
+![Google Cloud](https://img.shields.io/badge/Google%20Cloud-Deployment-4285F4?logo=googlecloud&logoColor=white)
+![RAG](https://img.shields.io/badge/RAG-AI%20Interpretation-8A2BE2)
+![LLM](https://img.shields.io/badge/LLM-AI%20Interpretation-412991)
+
+</div>
 
 ---
 
