@@ -10,9 +10,9 @@
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![YOLO](https://img.shields.io/badge/YOLO-YOLO11x--Pose-purple)
-![OpenCV](https://img.shields.io/badge/OpenCV-Computer%20Vision-green)
-![Roboflow](https://img.shields.io/badge/Roboflow-Dataset%20%26%20Annotation-orange)
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
+![FastAPI](https://img.shields.io/badge/FastAPI-Backend-teal)
+![React](https://img.shields.io/badge/React-TypeScript-blue)
+![Status](https://img.shields.io/badge/Status-Federation%20Trial-yellow)
 
 ---
 
@@ -22,9 +22,9 @@
 
 In sprinting, race time tells us **how large the performance gap is**, but it does not explain **why that gap exists**.
 
-**WATHBA** is an AI-powered sprint analysis system designed to identify the biomechanical factors that may contribute to the performance gap between an athlete and elite or Olympic-level sprinters.
+**WATHBA** is an AI-powered sprint performance analysis system designed to identify the biomechanical factors that may contribute to the performance gap between an athlete and elite or Olympic-level sprinters.
 
-Using standard sprint videos, WATHBA combines pose estimation, athlete tracking, temporal analysis, and biomechanical measurements to transform race footage into athlete-specific performance insights.
+Using sprint videos, WATHBA combines pose estimation, athlete tracking, temporal analysis, and biomechanical measurements to transform race footage into athlete-specific performance insights.
 
 > **Race time identifies the gap. WATHBA investigates what is behind it.**
 
@@ -32,41 +32,39 @@ Using standard sprint videos, WATHBA combines pose estimation, athlete tracking,
 
 ## Problem Statement
 
-Two athletes can achieve different race times because of differences in biomechanical characteristics such as:
+The performance gap between Saudi sprinters and elite or Olympic-level athletes can be identified through race time, but **race time alone does not explain why this gap exists**.
 
-- Step frequency
+Differences in performance may be influenced by biomechanical factors such as:
+
+- Step and stride frequency
 - Step and stride length
 - Ground contact time
 - Flight time
 - Knee mechanics
 - Trunk position
 
-Knowing that one athlete is slower than another does not explain **which biomechanical factors are contributing to the performance difference**.
+Traditional biomechanical analysis often requires specialized laboratories, motion-capture systems, force platforms, and high-speed cameras.
 
-Traditional biomechanical analysis often requires specialized laboratories, motion-capture systems, force platforms, and high-speed cameras. Although these methods provide highly detailed measurements, they may not always be accessible for frequent athlete assessment.
-
-WATHBA explores a more accessible video-based approach using artificial intelligence and computer vision to investigate the biomechanical factors behind sprint performance.
+WATHBA explores a more accessible AI and video-based approach for identifying and interpreting the biomechanical factors that may contribute to sprint performance differences.
 
 ---
 
 ## Project Objective
 
-The main objective of WATHBA is to support the reduction of the performance gap between developing athletes and elite or Olympic-level sprinters by identifying and explaining the biomechanical factors that may contribute to differences in sprint performance.
+WATHBA aims to support the reduction of the performance gap between developing athletes and elite or Olympic-level sprinters by:
 
-The system aims to:
-
-- Analyze sprint videos using computer vision.
-- Detect and track multiple athletes.
-- Estimate 17 human body keypoints.
-- Extract biomechanical performance indicators.
-- Build an individual biomechanical profile for each runner.
-- Compare athlete measurements with elite-level reference values.
-- Identify potential factors contributing to the performance gap.
-- Provide interpretable performance insights for athletes and coaches.
+- Analyzing sprint race videos.
+- Detecting and tracking multiple athletes.
+- Estimating 17 body keypoints.
+- Extracting biomechanical performance indicators.
+- Creating an individual biomechanical profile for each runner.
+- Comparing athlete measurements with approved elite-level references.
+- Identifying potential contributors to the performance gap.
+- Providing interpretable performance insights for athletes and coaches.
 
 ---
 
-## System Workflow
+# System Workflow
 
 ```text
 Sprint Video
@@ -93,7 +91,7 @@ Gait Event Detection
 Biomechanical Metrics
      │
      ▼
-Elite / Olympic Comparison
+Elite Reference Comparison
      │
      ▼
 Performance Gap Analysis
@@ -104,67 +102,61 @@ Athlete Insights
 
 ---
 
-## Dataset
+# Dataset
 
-A custom sprint pose dataset was collected from multiple sprint-video sources and manually annotated using **Roboflow**.
+The WATHBA dataset was personally collected from multiple sources, including YouTube, with a focus on sprinting and running videos.
 
-The dataset was specifically prepared to adapt the pose estimation model to sprint-specific body positions and race conditions.
+The collected videos were converted into individual frames, and athlete poses were manually annotated using **Roboflow**.
+
+Each athlete was annotated using **17 body keypoints** following the YOLO Pose keypoint format.
+
+The original dataset contained **516 annotated images**, which was expanded to **1,442 images** through data augmentation.
 
 | Dataset | Images |
 |---|---:|
-| Original Images | 516 |
+| Original | 516 |
 | After Augmentation | 1,442 |
 | Training | 1,153 |
 | Validation | 144 |
 | Testing | 145 |
 
-Each athlete is represented using **17 body keypoints**.
+The dataset was specifically developed to fine-tune YOLO11x-Pose for sprint-specific pose estimation and improve runner detection and keypoint stability.
 
 ---
 
-## Pose Estimation Model
+# Pose Estimation Model
 
-WATHBA uses **YOLO11x-Pose** as its pose estimation model.
-
-### Model Selection
+WATHBA uses **YOLO11x-Pose** for athlete pose estimation.
 
 The project initially experimented with **YOLO11n-Pose** as a lightweight model for early pipeline development.
 
-However, WATHBA requires more than basic person detection. The biomechanical calculations depend directly on accurate and stable body keypoints across consecutive video frames.
+Because WATHBA's biomechanical calculations depend directly on accurate and stable body keypoints, the higher-capacity **YOLO11x-Pose** was later selected to prioritize pose quality over inference speed.
 
-For this reason, the higher-capacity **YOLO11x-Pose** was selected to prioritize pose quality and keypoint reliability over inference speed.
+## Baseline
 
-### Baseline Model
+The COCO-pretrained YOLO11x-Pose was used as the baseline.
 
-The COCO-pretrained **YOLO11x-Pose** was used as the baseline model.
-
-When applied to sprint race videos, two main limitations were observed:
+During sprint-video testing, two main limitations were observed:
 
 - Some runners were not consistently detected.
 - Keypoints showed instability across consecutive frames.
 
-These limitations are particularly important for WATHBA because unstable or missing keypoints can affect downstream biomechanical measurements.
+## Fine-Tuned Model
 
-### Fine-Tuned Model
+YOLO11x-Pose was fine-tuned on the custom WATHBA sprint dataset to better handle:
 
-YOLO11x-Pose was fine-tuned using the custom WATHBA sprint dataset.
-
-The goal of fine-tuning was to adapt the model to sprint-specific conditions such as:
-
+- Sprint-specific poses
 - Rapid limb movement
-- Sprint-specific body positions
 - Multiple athletes
 - Athlete overlap
 - Partial occlusion
-- Race-video viewpoints
+- Race-video conditions
 
-After fine-tuning, runner detection became more consistent and the predicted keypoints showed improved stability across consecutive frames.
+The fine-tuned model produced more consistent runner detection and more stable keypoints for downstream biomechanical analysis.
 
 ---
 
-## Model Evaluation
-
-The baseline and fine-tuned models were evaluated using pose estimation metrics.
+# Model Evaluation
 
 | Metric | Baseline | Fine-Tuned | Improvement |
 |---|---:|---:|---:|
@@ -173,52 +165,34 @@ The baseline and fine-tuned models were evaluated using pose estimation metrics.
 | **mAP@50** | 92.50% | **99.48%** | +6.98 pp |
 | **mAP@50–95** | 56.31% | **86.38%** | **+30.08 pp** |
 
-The largest improvement was observed in **mAP@50–95**, which increased from **56.31% to 86.38%**.
+The largest improvement was observed in **mAP@50–95**, increasing from **56.31% to 86.38%**.
 
-This improvement indicates stronger pose localization under stricter evaluation thresholds and provides a more reliable foundation for the biomechanical analysis stage.
+This provides a stronger pose-estimation foundation for the biomechanical analysis pipeline.
 
-> **Note:** These results evaluate the pose estimation model. They should not be interpreted as the accuracy of the biomechanical measurements themselves.
-
----
-
-## Athlete Tracking
-
-WATHBA combines pose estimation with **ByteTrack** to track multiple athletes across consecutive video frames.
-
-Each detected athlete is assigned a unique:
-
-```text
-Runner ID
-```
-
-This allows biomechanical measurements to be calculated and stored independently for each runner throughout the analyzed sequence.
+> **Note:** Model evaluation metrics measure pose-estimation performance and do not represent the accuracy of the biomechanical measurements themselves.
 
 ---
 
-## Biomechanical Analysis
+# Biomechanical Analysis
 
-After pose estimation and athlete tracking, WATHBA converts the detected body movement into biomechanical performance indicators.
-
-The primary measurements include:
+After pose estimation and athlete tracking, WATHBA converts body movement into biomechanical performance indicators.
 
 | Metric | Description |
 |---|---|
-| **Step / Stride Frequency** | Represents the athlete's running rhythm |
-| **Step / Stride Length** | Represents the distance covered during the running cycle |
+| **Step / Stride Frequency** | Running rhythm and cycle frequency |
+| **Step / Stride Length** | Distance covered during the running cycle |
 | **Ground Contact Time** | Time the foot remains in contact with the ground |
 | **Flight Time** | Time during which the athlete is airborne |
-| **Knee Angle** | Describes lower-limb mechanics during sprinting |
-| **Trunk Lean** | Describes the athlete's trunk position during running |
+| **Knee Angle** | Lower-limb mechanics during sprinting |
+| **Trunk Lean** | Athlete trunk position during running |
 
-Additional normalized and contextual metrics are calculated to support more meaningful athlete comparison.
+Additional normalized and contextual measurements are calculated to support athlete comparison and result interpretation.
 
 ---
 
-## Performance Gap Analysis
+# Performance Gap Analysis
 
-The final objective is not simply to determine whether an athlete is faster or slower.
-
-WATHBA uses the athlete's biomechanical profile to investigate **why the performance difference may exist**.
+The purpose of WATHBA is not simply to determine that one athlete is slower than another.
 
 ```text
 Athlete Performance
@@ -227,41 +201,148 @@ Athlete Performance
 Biomechanical Profile
         │
         ▼
-Elite / Olympic Reference
+Elite Reference
         │
         ▼
 Identify Differences
         │
         ▼
-Explain Potential Contributors
+Potential Contributors
         │
         ▼
 Performance Development Insights
 ```
 
-By comparing the athlete's biomechanical measurements with relevant elite or Olympic-level reference values, WATHBA aims to identify which movement characteristics may be contributing to the observed performance gap.
+WATHBA uses biomechanical measurements to investigate **which movement characteristics may be contributing to the observed performance gap**.
 
 > **The time shows the gap. The biomechanics help explain the gap.**
 
 ---
 
-## Technologies Used
+# WATHBA Phase 2 — Federation Trial
 
-| Area | Technologies |
+Following the development and validation of the core analysis pipeline, WATHBA is being extended into a **production foundation for a 3–4 week federation trial**.
+
+Phase 2 moves the project from a research-oriented analysis pipeline toward a deployable coach and athlete platform.
+
+## Production Architecture
+
+- **Frontend:** React / TypeScript responsive coach and athlete workspace.
+- **Backend:** FastAPI with a versioned JSON contract.
+- **AI Model:** Adapter-based model boundary, allowing the approved team model to replace the mock model without changing the frontend.
+- **Storage:** Private object storage for uploaded videos and PostgreSQL for athletes, analysis jobs, and results.
+- **Reports:** Server-generated federation PDF reports.
+- **RAG / LLM:** Maintained as a separate evidence and interpretation component with read-only integration context.
+
+---
+
+## Event Safety
+
+The current calibrated analysis is designed for the **100m sprint**.
+
+For **200m and 400m**, the system may accept video and expose raw model measurements, but:
+
+- Elite comparisons remain locked.
+- Performance tiers remain locked.
+- Development claims remain locked.
+
+These features will only be enabled after event-specific reference reports are approved.
+
+> **WATHBA does not reuse 100m benchmark bands for 200m or 400m events.**
+
+---
+
+## Repository Structure
+
+```text
+backend/
+  app/                 FastAPI, quality policy, model adapter, PDF
+  tests/               Contract and event-safety tests
+  Dockerfile
+
+research/
+  original_modules/    Research and domain-analysis modules
+
+docs/
+  ARCHITECTURE.md
+```
+
+---
+
+## API
+
+The Phase 2 backend exposes a versioned analysis API:
+
+```text
+GET  /health
+GET  /v1/capabilities
+POST /v1/analyses
+GET  /v1/analyses/{analysis_id}
+GET  /v1/analyses/{analysis_id}/report.pdf
+GET  /v1/analyses/{analysis_id}/integration-context
+```
+
+The included in-memory store supports the initial contract trial and is intended to be replaced with **PostgreSQL** before multi-instance production deployment.
+
+---
+
+## Cloud Deployment
+
+Phase 2 is designed for cloud deployment using:
+
+**GitHub → Google Cloud Run → FastAPI Backend → Private Video Storage → Analysis Model**
+
+During continued model development, the backend can operate using:
+
+```text
+MODEL_MODE=mock
+```
+
+Once the approved model artifact is ready, the backend can switch to:
+
+```text
+MODEL_MODE=team
+```
+
+without requiring changes to the frontend API contract.
+
+---
+
+# Technologies
+
+| Area | Technology |
 |---|---|
-| **Programming** | Python |
+| **Programming** | Python, TypeScript |
 | **Pose Estimation** | YOLO11x-Pose |
 | **Tracking** | ByteTrack |
 | **Computer Vision** | OpenCV |
 | **Deep Learning** | Ultralytics, PyTorch |
 | **Data Processing** | NumPy, Pandas |
-| **Dataset Annotation** | Roboflow |
-| **Development** | Google Colab, GitHub |
-
+| **Dataset & Annotation** | Roboflow |
+| **Backend** | FastAPI |
+| **Frontend** | React / TypeScript |
+| **Database** | PostgreSQL |
+| **Deployment** | Google Cloud Run |
+| **AI Interpretation** | RAG / LLM |
 
 ---
 
-## WATHBA Team
+# Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+cd Wathba
+```
+
+Install the backend dependencies according to the project configuration.
+
+For the federation trial, the backend is designed to run independently from the frontend through its versioned API contract.
+
+---
+
+# WATHBA Team
 
 - **Aljuhara**
 - **Dalia**
